@@ -11,13 +11,14 @@ import {
 
 interface BasicFormValues {
   firstName: string;
+  lastName: string;
 }
 
 interface OtherProps {
   message: string;
 }
 
-const initialValues = { firstName: "hoge" };
+const initialValues = { firstName: "hoge", lastName: "" };
 
 const onSubmit = (
   values: BasicFormValues,
@@ -35,6 +36,9 @@ const InnerForm = (props: OtherProps & FormikProps<BasicFormValues>) => {
       <h1>{message}</h1>
       <Field type="text" name="firstName" />
       {touched.firstName && errors.firstName && <div>{errors.firstName}</div>}
+
+      <Field type="text" name="lastName" />
+      {touched.lastName && errors.lastName && <div>{errors.lastName}</div>}
 
       <button type="submit" disabled={isSubmitting}>
         Submit
@@ -58,6 +62,9 @@ const BasicForm = withFormik<BasicFormProps, BasicFormValues>({
     const errors: FormikErrors<BasicFormValues> = {};
     if (!values.firstName) {
       errors.firstName = "Required";
+    }
+    if (!values.lastName) {
+      errors.lastName = "Required";
     }
     return errors;
   },
