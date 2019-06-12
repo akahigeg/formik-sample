@@ -1,1 +1,1 @@
-https://jaredpalmer.com/formik/docs/tutorial
+https://jaredpalmer.com/formik/docs/guides/typescript
