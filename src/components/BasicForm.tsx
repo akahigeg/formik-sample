@@ -12,7 +12,7 @@ interface BasicFormValues {
   firstName: string;
 }
 
-const initialValues = { firstName: "hoge" };
+const initialValues = { firstName: "" };
 
 const onSubmit = (
   values: BasicFormValues,
@@ -23,16 +23,21 @@ const onSubmit = (
   actions.setSubmitting(false);
 };
 
-const NameInput: React.SFC<{}> = () => {
+interface InputProps {
+  name: string;
+  label: string;
+}
+
+const Input: React.SFC<InputProps> = props => {
   return (
     <Field
-      name="firstName"
+      name={props.name}
       render={({ field, form }: FieldProps<BasicFormValues>) => (
         <div>
-          <input type="text" {...field} placeholder="First Name" />
-          {form.touched.firstName &&
-            form.errors.firstName &&
-            form.errors.firstName}
+          <input type="text" {...field} placeholder={props.label} />
+          {form.touched[props.name] &&
+            form.errors[props.name] &&
+            form.errors[props.name]}
         </div>
       )}
     />
@@ -49,7 +54,7 @@ const BasicForm: React.SFC<{}> = () => {
         onSubmit={onSubmit}
         render={(formikBag: FormikProps<BasicFormValues>) => (
           <Form>
-            <NameInput />
+            <Input name="firstName" label="First Name" />
           </Form>
         )}
       />
